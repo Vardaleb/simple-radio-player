@@ -1,0 +1,21 @@
+#!/usr/bin/env xdg-open
+[Desktop Entry]
+Name=SRP
+Comment=Simple Radio Player
+Icon=radio
+Encoding=UTF-8
+
+Type=Service
+Exec=kpackagelauncherqml -a org.netts.srp %u
+
+X-KDE-PluginInfo-Author=Andreas Blochberger
+X-KDE-PluginInfo-Category=Multimedia
+X-KDE-PluginInfo-Email=andreas@netts,org
+X-KDE-PluginInfo-License=GPL
+X-KDE-PluginInfo-Name=org.netts.srp
+X-KDE-PluginInfo-Version=1.0
+X-KDE-PluginInfo-Website=
+X-KDE-ServiceTypes=Plasma/Applet
+
+X-Plasma-API=declarativeappletscript
+X-Plasma-MainScript=ui/main.qml
