@@ -31,6 +31,7 @@ PlasmaCore.IconItem
     id: root
     
     property string url: plasmoid.configuration.url
+    property bool autoPlay: plasmoid.configuration.autoPlay
     
     readonly property bool inPanel: (plasmoid.location === PlasmaCore.Types.TopEdge
         || plasmoid.location === PlasmaCore.Types.RightEdge
@@ -45,50 +46,18 @@ PlasmaCore.IconItem
     Plasmoid.onActivated: startStop()
     
     // source - the icon to be displayed
-    source: isPlaying() ? "media-playback-stop" : "media-playback-start"
+    source: getIcon()
 
     MediaPlayer 
     {
         id: playMusic
-        autoPlay: true
+        autoPlay: root.autoPlay
         source: root.url
         
         onStatusChanged:
         {
             if( playMusic.metaData.title != undefined )
-            {
-                toolTip.subText  = playMusic.metaData.title
-                console.log( playMusic.metaData.title )
-            }
-                
-            // console.log( "status changed " + status )
-            switch( status )
-            {
-                case MediaPlayer.Loaded:
-                    console.log( "Loaded" )
-                    break
-                case MediaPlayer.Buffered:
-                    console.log( "Buffered" )
-                    break
-                case MediaPlayer.Loading:
-                    console.log( "Loading" )
-                    break
-                case MediaPlayer.Buffering:
-                    console.log( "Buffering" )
-                    break
-                case MediaPlayer.Stalled:
-                    console.log( "Stalled" )
-                    break
-                case MediaPlayer.EndOfMedia:
-                    console.log( "EndOfMedia" )
-                    break
-                case MediaPlayer.InvalidMedia:
-                    console.log( "InvalidMedia" )
-                    break
-                case MediaPlayer.UnknownStatus:
-                    console.log( "UnknownStatus" )
-                    break
-            }
+                toolTip.subText = playMusic.metaData.title
         }
     }
 	
@@ -117,18 +86,17 @@ PlasmaCore.IconItem
             playMusic.play() 
         }
         
-        root.source = isPlaying() ? "media-playback-stop" : "media-playback-start"        
+        root.source = getIcon()
     }
 
+    function getIcon()
+    {
+        return isPlaying() ? "media-playback-stop" : "media-playback-start"
+    }
+    
     function isPlaying()
     {
         return playMusic.playbackState == MediaPlayer.PlayingState
-    }
-    
-    function onConfigChanged()
-    {
-        root.url = plasmoid.configuration.url
-        console.log( "Config changed: " + root.url )
     }
 }
 

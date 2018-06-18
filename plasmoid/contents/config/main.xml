@@ -9,6 +9,9 @@
     <entry name="url" type="String">
       <default>http://stream.srg-ssr.ch/m/rsc_de/mp3_128</default>
     </entry>
+    <entry name="autoPlay" type="bool">
+      <default>true</default>
+    </entry>
   </group>
 
 </kcfg>
